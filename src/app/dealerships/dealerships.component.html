@@ -1,0 +1,86 @@
+<div class="container">
+    <div class="row my-4">
+        <div class="col">
+            <h2 class="m-0">Dealrships</h2>
+        </div>
+        <div class="col text-end">
+            <a href="#" class="btn btn-primary rounded-pill">
+                <span class="fas fa-plus"></span> Add</a>
+        </div>
+        <div class="row mt-4">
+            <div class="col-3">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="text-center table-dark">
+            <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Name</th>
+                <th scope="col"> Amount Of Cars</th>
+                <th scope="col">Total Budget</th>
+                <th scope="col">Remaining Budget</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+            <tr>
+                <td>1</td>
+                <td>Ford</td>
+                <td>15</td>
+                <td>21</td>
+                <td>31</td>
+                <td>
+                    <a [routerLink]="['/dealership',12]" class="btn btn-primary rounded-pill">
+                        <span class="far fa-eye"></span> View </a>
+                    <a (click)="selectRow('Ford')" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        class="mx-2 btn btn-success rounded-pill">
+                        <span class="fas fa-pencil"></span> Edit</a>
+                    <a (click)="selectRow('Ford')" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                        class="btn btn-danger rounded-pill">
+                        <span class="far fa-trash"></span> Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title -- {{selectedData}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Modal title -- {{selectedData}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
