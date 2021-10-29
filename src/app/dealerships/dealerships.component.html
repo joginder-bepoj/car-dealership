@@ -51,9 +51,12 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        <div class="alert alert-danger w-25 mx-auto text-center" role="alert" *ngIf="dealers && dealers.length == 0">
+        <div class="alert alert-danger w-100 mx-auto text-center" role="alert" *ngIf="dealers && dealers.length == 0">
             No results found.
           </div>
+        <div *ngIf="error" class="alert alert-danger w-100 mx-auto text-center" role="alert" >
+            {{error}}
+        </div>
     </div>
 </div>
 

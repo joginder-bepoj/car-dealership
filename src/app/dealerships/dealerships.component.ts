@@ -11,6 +11,7 @@ export class DealershipComponent implements OnInit {
     selectedData: any;
     isLoading: boolean = false;
     dealers: any;
+    error: any;
     form!: FormGroup;
 
     constructor(
@@ -61,6 +62,7 @@ export class DealershipComponent implements OnInit {
             }, 850)
         }, error => {
             this.isLoading = false;
+            this.error = error.message;
         })
     }
 
