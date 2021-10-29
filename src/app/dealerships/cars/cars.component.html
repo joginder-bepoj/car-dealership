@@ -1,1 +1,148 @@
-cars-- list
+<div class="container" *ngIf="caresList">
+    <div class="row my-4">
+        <div class="col">
+            <h2 class="m-0">Dealrships : {{caresList.name}}</h2>
+        </div>
+       
+        <div class="row mt-4">
+            <div class="col-3">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            </div>
+            <div class="col text-end">
+                <a (click)="emptyRow()" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    class="btn btn-primary rounded-pill">
+                    <span class="fas fa-plus"></span> Add Car</a> &nbsp; 
+                    <a routerLink="/" class="btn btn-primary rounded-pill">
+                    <span class="fas fa-plus"></span> Back</a>
+            </div>
+            
+        </div>
+    </div>
+    <div class="table-holder position-relative">
+        <table class="table table-bordered table-hover">
+            <thead class="text-center table-dark">
+                <tr>
+                    <th scope="col">Sr.No</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Model</th>
+                    <td scope="col">Color</td>
+                    <th scope="col">Price</th>                    
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+              
+                <tr *ngFor="let item of caresList.cars; index as index">
+                    <td>{{index + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.model}}</td>
+                    <td>{{item.color}}</td>
+                    <td>{{item.price}}</td>                   
+                    <td>
+                       
+                        <a (click)="selectRow(item)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            class="mx-2 btn btn-success rounded-pill">
+                            <span class="fas fa-pencil"></span> Edit</a>
+                        <a (click)="selectRow(item)" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            class="btn btn-danger rounded-pill">
+                            <span class="far fa-trash"></span> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center" *ngIf="isLoading">
+            <div class="spinner-grow" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div class="alert alert-danger w-100 mx-auto text-center" role="alert" *ngIf="caresList && caresList.length == 0">
+            No results found.
+          </div>
+        <div *ngIf="error" class="alert alert-danger w-100 mx-auto text-center" role="alert" >
+            {{error}}
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title" id="exampleModalLabel">{{selectedData ? 'Edit '+ selectedData.name : 'Add
+                        Car'}} </h5>
+                    <small class="d-block">All fields are mandatory.</small>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <form [formGroup]="form">
+                    <div class="p-3">
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <label for="">Brand</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="brand" class="form-control" type="text"
+                                    placeholder="Brand's Name">
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <label for="">Model</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="model" class="form-control" type="text"
+                                    placeholder="Model">
+                            </div>
+                        </div>
+                        <div class="row my-3 align-items-center">
+                            <div class="col-4">
+                                <label for="">Color</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="color" class="form-control" type="text"
+                                    placeholder="Color">
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <label for="">Price</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="price" class="form-control" type="text"
+                                    placeholder="$0.00">
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="form-footer text-end p-3 border-top">
+                        <button type="button" class="me-1 btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button data-bs-dismiss="modal" (click)="onSubmit()" [disabled]="form.invalid" type="submit" class="ms-1 btn btn-primary">
+                            {{selectedData ? 'Update' : 'Save'}}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this Car/Brand</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button (click)="delete()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,6 +18,12 @@ export class UserService {
         return this.http.get(`${this.apiUrl}`, { params: param });
     }
 
+    getCars(data: any) {      
+      //  let param = new HttpParams();
+       // if (data) param = param.append('data', data);
+        return this.http.get(`${this.apiUrl+'/'+data}`);
+    }
+
     addDealer(data: any) {
         return this.http.post(`${this.apiUrl}`, data);
     }
@@ -28,6 +34,14 @@ export class UserService {
 
     deleteDealer(id: any) {
         return this.http.delete(`${this.apiUrl}/${id}`);
+    }
+
+    addCars(id: any, data: any) {
+        return this.http.put(`${this.apiUrl}/${id}`, data);
+    }
+
+    updateCar(id: any, data: any) {
+        return this.http.put(`${this.apiUrl}/${id}`, data);
     }
 
 }

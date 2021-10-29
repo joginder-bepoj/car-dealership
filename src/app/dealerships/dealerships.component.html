@@ -3,14 +3,15 @@
         <div class="col">
             <h2 class="m-0">Dealrships</h2>
         </div>
-        <div class="col text-end">
-            <a (click)="emptyRow()" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                class="btn btn-primary rounded-pill">
-                <span class="fas fa-plus"></span> Add</a>
-        </div>
+       
         <div class="row mt-4">
             <div class="col-3">
                 <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            </div>
+            <div class="col text-end">
+                <a (click)="emptyRow()" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    class="btn btn-primary rounded-pill">
+                    <span class="fas fa-plus"></span> Add Dealer</a>
             </div>
         </div>
     </div>
@@ -30,7 +31,7 @@
                 <tr *ngFor="let item of dealers; index as index">
                     <td>{{index + 1}}</td>
                     <td>{{item.name}}</td>
-                    <td>{{item.cars?.length || 'N/A'}}</td>
+                    <td>{{item.cars?.length || 0 }}</td>
                     <td>{{item.totalBudget || 'N/A'}}</td>
                     <td>{{item.remainingBudget || 'N/A'}}</td>
                     <td>
@@ -86,11 +87,13 @@
                         </div>
                         <div class="row my-3 align-items-center">
                             <div class="col-4">
-                                <label for="">Address</label>
+                                <label for="">Location</label>
                             </div>
                             <div class="col-8">
-                                <input formControlName="address" class="form-control" type="text"
-                                    placeholder="Location">
+                                <input formControlName="longitude" class="form-control" type="text"
+                                    placeholder="longitude">
+                                    <input formControlName="latitude" class="form-control" type="text"
+                                    placeholder="latitude">
                             </div>
                         </div>
                         <div class="row align-items-center">

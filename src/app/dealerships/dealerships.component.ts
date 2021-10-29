@@ -19,13 +19,14 @@ export class DealershipComponent implements OnInit {
         private fb: FormBuilder
     ) {
         this.form = this.fb.group({
-            name: ['', Validators.required],
-            address: ['', Validators.required],
+            name: ['', Validators.required],          
             totalBudget: ['', Validators.required],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            latitude: [],
-            longitude: []
+            latitude: ['', Validators.required],
+            longitude: ['', Validators.required],
+            remainingBudget:[],
+            cars:[]
         })
     }
 
@@ -39,27 +40,29 @@ export class DealershipComponent implements OnInit {
     }
 
     selectRow(data: any) {
-        this.selectedData = data;
+        this.selectedData = data;       
         this.patchForm(this.selectedData);
     }
 
-    patchForm({ name, location, totalBudget, owner }: any) {
+    patchForm({ name, location, totalBudget, owner, cars, remainingBudget }: any) {
         this.form.patchValue({
-            name,
-            address: location?.address,
+            name,            
             totalBudget,
             firstName: owner?.firstName,
-            lastName: owner?.lastName
-        })
+            lastName: owner?.lastName,
+            latitude: location?.latitude,
+            longitude: location?.longitude,
+            cars,
+            remainingBudget
+        });
+        
     }
 
     getDealers() {
         this.isLoading = true;
         this.userService.getDealers(null).subscribe(data => {
-            setTimeout(() => {
-                this.isLoading = false;
-                this.dealers = data;
-            }, 850)
+            this.isLoading = false;
+            this.dealers = data;
         }, error => {
             this.isLoading = false;
             this.error = error.message;
@@ -67,13 +70,14 @@ export class DealershipComponent implements OnInit {
     }
 
     onSubmit() {
-        this.form.value.location = { address: this.form.value.address, latitude: '', longitude: '' };
-        this.form.value.owner = { firstName: this.form.value.firstName, lastName: this.form.value.lastName }
-        delete this.form.value.address;
+        this.form.value.location = { latitude:this.form.value.latitude, longitude: this.form.value.longitude };
+        this.form.value.owner = { firstName: this.form.value.firstName, lastName: this.form.value.lastName };           
+        delete this.form.value.latitude;
+        delete this.form.value.longitude;
         delete this.form.value.firstName;
         delete this.form.value.lastName;
         if (this.selectedData) this.updateDealer(this.selectedData.id);
-        else this.addDealer();
+        else this.addDealer(); this.form.value.cars = [];
     }
 
     addDealer() {
@@ -83,6 +87,7 @@ export class DealershipComponent implements OnInit {
     }
 
     updateDealer(id: any) {
+        console.log(this.form.value)
         this.userService.updateDealer(this.selectedData.id, this.form.value).subscribe(data => {
             this.getDealers();
         })

@@ -1,45 +1,11 @@
 {
   "dealers": [
     {
-      "id": 1002,
-      "name": "Tesla",
-      "totalBudget": "$8520",
-      "remainingBudget": "$1505",
-      "owner": {
-        "firstName": "John",
-        "lastName": "Doe"
-      },
-      "location": {
-        "latitude": "46545.45",
-        "longitude": "4655.245",
-        "address": "USA"
-      },
-      "cars": [
-        {
-          "id": "101",
-          "name": "Tesla Semi",
-          "model": "2018",
-          "brand": "TESLA",
-          "color": "Silver",
-          "price": "$5452"
-        },
-        {
-          "id": "102",
-          "name": "Tesla X",
-          "model": "2020",
-          "brand": "TESLA",
-          "color": "black",
-          "price": "$5452"
-        },
-        {
-          "id": "103",
-          "name": "Tesla Y",
-          "model": "2015",
-          "brand": "TESLA",
-          "color": "gray",
-          "price": "$5452"
-        }
-      ]
+      "brand": "Ford1",
+      "model": "2018",
+      "color": "Silver",
+      "price": "$5452",
+      "id": 1002
     },
     {
       "id": 1003,
@@ -52,8 +18,7 @@
       },
       "location": {
         "latitude": "46545.45",
-        "longitude": "4655.245",
-        "address": "USA"
+        "longitude": "4655.245"
       },
       "cars": [
         {
@@ -81,6 +46,20 @@
           "price": "$855"
         }
       ]
+    },
+    {
+      "name": "ram",
+      "totalBudget": "10",
+      "cars": [],
+      "location": {
+        "latitude": "afasf",
+        "longitude": "asdf"
+      },
+      "owner": {
+        "firstName": "safa",
+        "lastName": "fasf"
+      },
+      "id": 1004
     }
   ]
 }
