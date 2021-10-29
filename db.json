@@ -1,0 +1,86 @@
+{
+  "dealers": [
+    {
+      "id": 1002,
+      "name": "Tesla",
+      "totalBudget": "$8520",
+      "remainingBudget": "$1505",
+      "owner": {
+        "firstName": "John",
+        "lastName": "Doe"
+      },
+      "location": {
+        "latitude": "46545.45",
+        "longitude": "4655.245",
+        "address": "USA"
+      },
+      "cars": [
+        {
+          "id": "101",
+          "name": "Tesla Semi",
+          "model": "2018",
+          "brand": "TESLA",
+          "color": "Silver",
+          "price": "$5452"
+        },
+        {
+          "id": "102",
+          "name": "Tesla X",
+          "model": "2020",
+          "brand": "TESLA",
+          "color": "black",
+          "price": "$5452"
+        },
+        {
+          "id": "103",
+          "name": "Tesla Y",
+          "model": "2015",
+          "brand": "TESLA",
+          "color": "gray",
+          "price": "$5452"
+        }
+      ]
+    },
+    {
+      "id": 1003,
+      "name": "Ford",
+      "totalBudget": "$1525",
+      "remainingBudget": "$2700",
+      "owner": {
+        "firstName": "John",
+        "lastName": "Doe"
+      },
+      "location": {
+        "latitude": "46545.45",
+        "longitude": "4655.245",
+        "address": "USA"
+      },
+      "cars": [
+        {
+          "id": "10001",
+          "name": "Ford Endeavour",
+          "model": "2018",
+          "brand": "Ford",
+          "color": "Silver",
+          "price": "$5452"
+        },
+        {
+          "id": "10002",
+          "name": "Ford EcoSport",
+          "model": "2020",
+          "brand": "Ford",
+          "color": "red",
+          "price": "$542"
+        },
+        {
+          "id": "10003",
+          "name": "Ford Figo",
+          "model": "2018",
+          "brand": "Ford",
+          "color": "white",
+          "price": "$855"
+        }
+      ]
+    }
+  ]
+}

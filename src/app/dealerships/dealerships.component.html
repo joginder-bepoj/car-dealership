@@ -4,7 +4,8 @@
             <h2 class="m-0">Dealrships</h2>
         </div>
         <div class="col text-end">
-            <a href="#" class="btn btn-primary rounded-pill">
+            <a (click)="emptyRow()" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                class="btn btn-primary rounded-pill">
                 <span class="fas fa-plus"></span> Add</a>
         </div>
         <div class="row mt-4">
@@ -13,54 +14,117 @@
             </div>
         </div>
     </div>
-    <table class="table table-bordered table-hover">
-        <thead class="text-center table-dark">
-            <tr>
-                <th scope="col">Sr.No</th>
-                <th scope="col">Name</th>
-                <th scope="col"> Amount Of Cars</th>
-                <th scope="col">Total Budget</th>
-                <th scope="col">Remaining Budget</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody class="text-center">
-            <tr>
-                <td>1</td>
-                <td>Ford</td>
-                <td>15</td>
-                <td>21</td>
-                <td>31</td>
-                <td>
-                    <a [routerLink]="['/dealership',12]" class="btn btn-primary rounded-pill">
-                        <span class="far fa-eye"></span> View </a>
-                    <a (click)="selectRow('Ford')" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                        class="mx-2 btn btn-success rounded-pill">
-                        <span class="fas fa-pencil"></span> Edit</a>
-                    <a (click)="selectRow('Ford')" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                        class="btn btn-danger rounded-pill">
-                        <span class="far fa-trash"></span> Delete</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-holder position-relative">
+        <table class="table table-bordered table-hover">
+            <thead class="text-center table-dark">
+                <tr>
+                    <th scope="col">Sr.No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Amount Of Cars</th>
+                    <th scope="col">Total Budget</th>
+                    <th scope="col">Remaining Budget</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr *ngFor="let item of dealers; index as index">
+                    <td>{{index + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.cars?.length || 'N/A'}}</td>
+                    <td>{{item.totalBudget || 'N/A'}}</td>
+                    <td>{{item.remainingBudget || 'N/A'}}</td>
+                    <td>
+                        <a [routerLink]="['/dealership',item.id]" class="btn btn-primary rounded-pill">
+                            <span class="far fa-eye"></span> View </a>
+                        <a (click)="selectRow(item)" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            class="mx-2 btn btn-success rounded-pill">
+                            <span class="fas fa-pencil"></span> Edit</a>
+                        <a (click)="selectRow(item)" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            class="btn btn-danger rounded-pill">
+                            <span class="far fa-trash"></span> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center" *ngIf="isLoading">
+            <div class="spinner-grow" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div class="alert alert-danger w-25 mx-auto text-center" role="alert" *ngIf="dealers && dealers.length == 0">
+            No results found.
+          </div>
+    </div>
 </div>
 
-
-<!-- Edit Modal -->
+<!-- Add/Edit Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title -- {{selectedData}}</h5>
+                <div>
+                    <h5 class="modal-title" id="exampleModalLabel">{{selectedData ? 'Edit '+ selectedData.name : 'Add
+                        Dealer'}} </h5>
+                    <small class="d-block">All fields are mandatory.</small>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-body p-0">
+                <form [formGroup]="form">
+                    <div class="p-3">
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <label for="">Dealer's Name</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="name" class="form-control" type="text"
+                                    placeholder="Dealer's Name">
+                            </div>
+                        </div>
+                        <div class="row my-3 align-items-center">
+                            <div class="col-4">
+                                <label for="">Address</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="address" class="form-control" type="text"
+                                    placeholder="Location">
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <label for="">Total Budget</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="totalBudget" class="form-control" type="text"
+                                    placeholder="$0.00">
+                            </div>
+                        </div>
+                        <div class="row my-3 align-items-center">
+                            <div class="col-4">
+                                <label for="">Owner's First Name</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="firstName" class="form-control" type="text"
+                                    placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <label for="">Owner's Last Name</label>
+                            </div>
+                            <div class="col-8">
+                                <input formControlName="lastName" class="form-control" type="text"
+                                    placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-footer text-end p-3 border-top">
+                        <button type="button" class="me-1 btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button data-bs-dismiss="modal" (click)="onSubmit()" [disabled]="form.invalid" type="submit" class="ms-1 btn btn-primary">
+                            {{selectedData ? 'Update' : 'Save'}}
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -71,15 +135,15 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Modal title -- {{selectedData}}</h5>
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
+                <p>Are you sure you want to delete this dealer</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button (click)="delete()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
             </div>
         </div>
     </div>
