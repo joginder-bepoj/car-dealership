@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
+import { fromEvent } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-dealership',
@@ -13,6 +15,10 @@ export class DealershipComponent implements OnInit {
     dealers: any;
     error: any;
     form!: FormGroup;
+    searchText: string = '';
+    isSort: boolean = false;
+    sortKey: any;
+    sortOrder: boolean = false;
 
     constructor(
         private userService: UserService,
@@ -29,6 +35,9 @@ export class DealershipComponent implements OnInit {
             cars:[]
         })
     }
+
+    @ViewChild('input', { static: true })
+    input!: ElementRef;
 
     ngOnInit() {
         this.getDealers();
@@ -55,12 +64,12 @@ export class DealershipComponent implements OnInit {
             cars,
             remainingBudget
         });
-        
+        console.log(this.form.value)
     }
 
     getDealers() {
         this.isLoading = true;
-        this.userService.getDealers(null).subscribe(data => {
+        this.userService.getDealers(this.searchText, this.sortKey, this.sortOrder).subscribe(data => {
             this.isLoading = false;
             this.dealers = data;
         }, error => {
@@ -77,17 +86,17 @@ export class DealershipComponent implements OnInit {
         delete this.form.value.firstName;
         delete this.form.value.lastName;
         if (this.selectedData) this.updateDealer(this.selectedData.id);
-        else this.addDealer(); this.form.value.cars = [];
+        else this.addDealer(); 
     }
 
     addDealer() {
+        this.form.value.cars = [];
         this.userService.addDealer(this.form.value).subscribe(data => {
             this.getDealers();
         })
     }
 
-    updateDealer(id: any) {
-        console.log(this.form.value)
+    updateDealer(id: any) {       
         this.userService.updateDealer(this.selectedData.id, this.form.value).subscribe(data => {
             this.getDealers();
         })
@@ -98,4 +107,27 @@ export class DealershipComponent implements OnInit {
             this.getDealers();
         })
     }
+
+    ngAfterViewInit() {
+        // server-side search
+        fromEvent(this.input.nativeElement, 'keyup')
+          .pipe(
+            filter(Boolean),
+            debounceTime(1000),
+            distinctUntilChanged(),
+            tap((text) => {
+              this.searchText = this.input.nativeElement.value;
+                this.getDealers();
+            })
+          )
+          .subscribe();
+      }
+
+
+      sort() {
+        this.isSort = !this.isSort;
+        this.sortKey = 'name';
+        this.sortOrder = this.isSort;
+        this.getDealers();
+      }
 }

@@ -6,14 +6,14 @@
        
         <div class="row mt-4">
             <div class="col-3">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control" type="search" placeholder="Search by brand" aria-label="Search" (keyup)="searchCars($event)">
             </div>
             <div class="col text-end">
                 <a (click)="emptyRow()" data-bs-toggle="modal" data-bs-target="#exampleModal"
                     class="btn btn-primary rounded-pill">
                     <span class="fas fa-plus"></span> Add Car</a> &nbsp; 
                     <a routerLink="/" class="btn btn-primary rounded-pill">
-                    <span class="fas fa-plus"></span> Back</a>
+                    <span class="fas arrow"></span> Back</a>
             </div>
             
         </div>
@@ -23,8 +23,8 @@
             <thead class="text-center table-dark">
                 <tr>
                     <th scope="col">Sr.No</th>
-                    <th scope="col">Brand</th>
-                    <th scope="col">Model</th>
+                    <th scope="col">Brand <span (click)="sort('brand')" class="fas fa-sort"></span> </th>
+                    <th scope="col">Model <span (click)="sort('model')" class="fas fa-sort"></span></th>
                     <td scope="col">Color</td>
                     <th scope="col">Price</th>                    
                     <th scope="col">Actions</th>
@@ -34,7 +34,7 @@
               
                 <tr *ngFor="let item of caresList.cars; index as index">
                     <td>{{index + 1}}</td>
-                    <td>{{item.name}}</td>
+                    <td>{{item.brand}}</td>
                     <td>{{item.model}}</td>
                     <td>{{item.color}}</td>
                     <td>{{item.price}}</td>                   

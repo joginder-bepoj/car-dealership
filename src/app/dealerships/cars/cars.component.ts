@@ -12,6 +12,7 @@ export class CarsComponent implements OnInit {
     isLoading: boolean = false;
     caresList: any;
     error: any;
+    sortFlaf: number=0;
     form!: FormGroup;
     constructor(
         private route: ActivatedRoute,
@@ -22,7 +23,8 @@ export class CarsComponent implements OnInit {
             brand: ['', Validators.required],
             model: ['', Validators.required],
             color: ['', Validators.required],
-            price: ['', Validators.required]           
+            price: ['', Validators.required]
+             
         })
      }
 
@@ -73,24 +75,80 @@ export class CarsComponent implements OnInit {
     }
 
     addCar() {
-        let data = this.caresList; 
-        this.userService.addCars(this.dealerId, this.form.value).subscribe(data => {
+        let x = this.caresList.cars.length-1;
+        if(this.caresList.cars.length==0){
+            this.form.value.id = 1
+        } else {
+            this.form.value.id = parseInt(this.caresList.cars[x].id)+1;
+        }
+        
+        let data = this.caresList;         
+        data.cars.push(this.form.value); 
+        
+        this.userService.addCars(this.dealerId, data).subscribe(data => {
            this.getCars(this.dealerId);
         })
     }
 
     updateCar(id: any) {
-        console.log(this.form.value)
-        let data = this.caresList; 
-
-        this.userService.updateCar(this.dealerId, this.form.value).subscribe(data => {
+        let data = this.caresList.cars; 
+        data = data.map((data:any, index:number) => {
+            if(data.id == this.selectedData.id) return data[index] = this.form.value;
+            else return data;
+        });
+        this.caresList.cars=data;  
+        this.userService.updateCar(this.dealerId, this.caresList).subscribe(data => {
             this.getCars(this.dealerId);
         })
     }
 
     delete() {
-        this.userService.deleteDealer(this.selectedData.id).subscribe(data => {
+        let data = this.caresList.cars; 
+        data = data.filter(((item:any) => item.id != this.selectedData.id));
+        this.caresList.cars=data;        
+        this.userService.deleteCar(this.dealerId, this.caresList).subscribe(data => {
             this.getCars(this.dealerId);
         })
+    }
+
+    searchCars(event:any){
+        console.log(event)
+        let value = event.target.value.toUpperCase();
+        let car =  this.caresList.cars;
+        var filteredArray = car.filter(function( obj:any ) { 
+           return obj.brand.toUpperCase().includes(value)
+        });
+        console.log(filteredArray)
+        if(value){
+            this.caresList.cars = filteredArray;           
+        } else {
+            this.getCars(this.dealerId);
+        }
+       
+    }
+
+    sort(type:any){
+        let car =  this.caresList.cars;
+
+        if(this.sortFlaf==0){
+            if( type == 'model'){
+                var sortedArray = car.sort((a:any, b:any) => (a.model < b.model ? -1 : 1)); 
+            }else{
+                var sortedArray = car.sort((a:any, b:any) => (a.brand < b.brand ? -1 : 1)); 
+            }
+             
+            this.sortFlaf = 1 ;
+        }else{
+            if( type == 'model'){
+                var sortedArray = car.sort((a:any, b:any) => (a.model > b.model ? -1 : 1));  
+            }else{
+                var sortedArray = car.sort((a:any, b:any) => (a.brand > b.brand ? -1 : 1));  
+            }
+             
+            this.sortFlaf = 0; 
+        }
+        
+           
+        this.caresList.cars = sortedArray;
     }
 }

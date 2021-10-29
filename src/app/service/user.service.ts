@@ -12,9 +12,10 @@ export class UserService {
         private http: HttpClient
     ) { }
 
-    getDealers(search: any) {
+    getDealers(search: string, sortKey: string, sortOrder:boolean) {
         let param = new HttpParams();
-        if (search) param = param.append('search', search);
+        if (search) param = param.append('q', search);
+        if (sortKey) param = param.append('_sort', sortKey).append('_order',sortOrder ? 'asc' : 'desc');
         return this.http.get(`${this.apiUrl}`, { params: param });
     }
 
@@ -41,6 +42,10 @@ export class UserService {
     }
 
     updateCar(id: any, data: any) {
+        return this.http.put(`${this.apiUrl}/${id}`, data);
+    }
+
+    deleteCar(id: any, data: any) {
         return this.http.put(`${this.apiUrl}/${id}`, data);
     }
 

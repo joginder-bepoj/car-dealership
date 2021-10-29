@@ -1,15 +1,8 @@
 {
   "dealers": [
     {
-      "brand": "Ford1",
-      "model": "2018",
-      "color": "Silver",
-      "price": "$5452",
-      "id": 1002
-    },
-    {
-      "id": 1003,
-      "name": "Ford",
+      "id": 1,
+      "name": "GM",
       "totalBudget": "$1525",
       "remainingBudget": "$2700",
       "owner": {
@@ -22,44 +15,185 @@
       },
       "cars": [
         {
-          "id": "10001",
-          "name": "Ford Endeavour",
+          "id": 1,
           "model": "2018",
-          "brand": "Ford",
+          "brand": "GM 1",
           "color": "Silver",
           "price": "$5452"
         },
         {
-          "id": "10002",
-          "name": "Ford EcoSport",
+          "id": 2,
           "model": "2020",
-          "brand": "Ford",
+          "brand": "GM 2",
           "color": "red",
           "price": "$542"
         },
         {
-          "id": "10003",
-          "name": "Ford Figo",
+          "id": 3,
           "model": "2018",
-          "brand": "Ford",
+          "brand": "GM 3",
           "color": "white",
           "price": "$855"
+        },
+        {
+          "id": 4,
+          "model": "2019",
+          "brand": "GM 4",
+          "color": "white",
+          "price": "$850"
+        },
+        {
+          "id": 5,
+          "model": "2019",
+          "brand": "GM 5",
+          "color": "white",
+          "price": "$850"
+        },
+        {
+          "id": 6,
+          "model": "2019",
+          "brand": "GM 6",
+          "color": "white",
+          "price": "$850"
+        },
+        {
+          "id": 7,
+          "model": "2019",
+          "brand": "GM 7",
+          "color": "white",
+          "price": "$850"
+        },
+        {
+          "id": 8,
+          "model": "2009",
+          "brand": "GM 8",
+          "color": "white",
+          "price": "$850"
+        },
+        {
+          "id": 9,
+          "model": "2019",
+          "brand": "GM 9",
+          "color": "white",
+          "price": "$850"
+        },
+        {
+          "brand": "gm 9",
+          "model": "2020",
+          "color": "red",
+          "price": "200",
+          "id": 10
         }
       ]
     },
     {
-      "name": "ram",
-      "totalBudget": "10",
-      "cars": [],
+      "name": "Ford",
+      "totalBudget": "$200",
+      "remainingBudget": "$3000",
+      "cars": [
+        {
+          "brand": "Ford 1",
+          "model": "2010",
+          "color": "red",
+          "price": "$100",
+          "id": 1
+        },
+        {
+          "brand": "Ford 2",
+          "model": "2009",
+          "color": "red",
+          "price": "$100",
+          "id": 2
+        },
+        {
+          "brand": "Ford 3",
+          "model": "2010",
+          "color": "black",
+          "price": "$100",
+          "id": 3
+        },
+        {
+          "brand": "Ford 4",
+          "model": "2010",
+          "color": "red",
+          "price": "$100",
+          "id": 4
+        },
+        {
+          "brand": "Ford 5",
+          "model": "2010",
+          "color": "red",
+          "price": "$100",
+          "id": 5
+        },
+        {
+          "brand": "Ford 6",
+          "model": "2010",
+          "color": "red",
+          "price": "$100",
+          "id": 6
+        }
+      ],
       "location": {
-        "latitude": "afasf",
-        "longitude": "asdf"
+        "latitude": "sadfdsaf",
+        "longitude": "sfsafsadf"
       },
       "owner": {
-        "firstName": "safa",
-        "lastName": "fasf"
+        "firstName": "sadfasdf",
+        "lastName": "sdafads"
       },
-      "id": 1004
+      "id": 2
+    },
+    {
+      "name": "Tesla",
+      "totalBudget": "$1000",
+      "remainingBudget": "$2000",
+      "cars": [
+        {
+          "brand": "Tesla 1",
+          "model": "2019",
+          "color": "red",
+          "price": "$100",
+          "id": 1
+        },
+        {
+          "brand": "Tesla 2",
+          "model": "2009",
+          "color": "red",
+          "price": "$1000",
+          "id": 2
+        },
+        {
+          "brand": "Tesla 3",
+          "model": "2019",
+          "color": "red",
+          "price": "$100",
+          "id": 3
+        },
+        {
+          "brand": "Tesla 4",
+          "model": "209",
+          "color": "blue",
+          "price": "$1000",
+          "id": 4
+        },
+        {
+          "brand": "Tesla 5",
+          "model": "2019",
+          "color": "red",
+          "price": "$100",
+          "id": 5
+        }
+      ],
+      "location": {
+        "latitude": "zxvc",
+        "longitude": "xzvzxv"
+      },
+      "owner": {
+        "firstName": "xzv",
+        "lastName": "xcvzxvxzcvxvzcx"
+      },
+      "id": 3
     }
   ]
 }
